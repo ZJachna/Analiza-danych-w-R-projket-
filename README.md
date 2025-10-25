@@ -6,3 +6,5 @@ Celem tego projektu jest analiza danych z różnych coś
 Nie rozumiem co się dzieje
 #pomocy
 oszaleje
+#bedzei problem
+będziemy miały problemy z tym projektem xd, ttzeba bedzei potem chyba usunac te linijki
