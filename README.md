@@ -10,3 +10,5 @@ oszaleje
 będziemy miały problemy z tym projektem xd, ttzeba bedzei potem chyba usunac te linijki
 #problem
 jak to usunąć później xd???!!!
+#ej chyba rozumiem 
+smieszne
