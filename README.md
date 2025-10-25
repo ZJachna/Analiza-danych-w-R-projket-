@@ -2,3 +2,5 @@
 Studencki projekt zespołowy Analiza danych w R 2025/2026
 ## Opis projektu
 Celem tego projektu jest analiza danych z różnych coś
+#nie wiem co robię
+Nie rozumiem co się dzieje
