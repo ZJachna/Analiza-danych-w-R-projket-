@@ -27,3 +27,5 @@ Celem niniejszego projektu jest analiza danych dotyczących hoteli resortowych o
 2. Jak lokalizacja wpływa na popularność obu typów hoteli?
 3. W jakim okresie hotele są rezerwowane najczęściej?
 4. Jakie pokoje są rezerwowane najczęściej?
+5. Które hotele wybierane są częściej resort czy city?
+6. Ilu osobowe są najczęściej rezerwacje? 
