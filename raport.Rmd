@@ -1,0 +1,22 @@
+---
+title: "Analiza danych - projekt"
+author: "Zuzanna Jachna, Zuzanna Miechowicz, Wiktoria Dobosz, Patryk Piotrowski"
+date: "`r Sys.Date()`"
+output:
+  rmdformats::downcute:
+    self_contained: true
+    default_style: "light"
+    downcute_theme: "default"
+---
+
+
+```{r setup, include=FALSE}
+## Global options
+knitr::opts_chunk$set(cache = TRUE)
+library(tidyverse)
+library(readr)
+resort <- read_csv("hotele/Resort_hotels.csv")
+city <- read_csv("hotele/City_hotels.csv")
+
+```
+
