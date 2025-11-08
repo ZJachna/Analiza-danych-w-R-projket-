@@ -19,7 +19,6 @@ city <- read_csv("hotele/City_hotels.csv")
 
 ```
 
-<<<<<<< HEAD
 # Wstęp
 
 Celem niniejszego projektu jest analiza danych dotyczących hoteli resortowych oraz miejskich w celu zrozumienia różnic między tymi dwoma typami obiektów noclegowych. Badanie obejmuje porównanie takich aspektów, jak poziom cen, sezonowość obłożenia, struktura klientów, oceny gości czy strategie marketingowe. Wyniki analizy pozwolą wskazać czynniki wpływające na konkurencyjność hoteli w różnych lokalizacjach oraz sformułować rekomendacje dla zarządzających obiektami turystycznymi.
@@ -70,5 +69,5 @@ Opis najważniejszych zmiennych:
 - Sezonowość rezerwacji: Zmienna określająca, w jakim okresie roku dokonano rezerwacji (np. sezon wysoki, sezon niski). 
 - Lokalizacja hotelu: Kategoryczna zmienna określająca, gdzie znajduje się hotel (np.nad morzem, w centrum miasta).
 
-testujemy zmiany raz dwa trzy 
+
 
