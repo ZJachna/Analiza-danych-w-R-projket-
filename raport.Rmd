@@ -29,3 +29,5 @@ Celem niniejszego projektu jest analiza danych dotyczących hoteli resortowych o
 4. Jakie pokoje są rezerwowane najczęściej?
 5. Które hotele wybierane są częściej resort czy city?
 6. Ilu osobowe są najczęściej rezerwacje? 
+7. Jaki jest średni czas pobytu gości w hotelach
+8. Czy hotele miejskie i resortowe różnią się pod względem średniego wieku gości
