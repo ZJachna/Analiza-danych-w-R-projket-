@@ -25,3 +25,5 @@ Celem niniejszego projektu jest analiza danych dotyczących hoteli resortowych o
 #Pytania badawcze
 1. Jakie są kluczowe różnice w poziomie cen między hotelami resortowymi a miejskimi?
 2. Jak lokalizacja wpływa na popularność obu typów hoteli?
+3. W jakim okresie hotele są rezerwowane najczęściej?
+4. Jakie pokoje są rezerwowane najczęściej?
