@@ -37,6 +37,11 @@ Celem niniejszego projektu jest analiza danych dotyczących hoteli resortowych o
 
 6.  Ilu osobowe są najczęściej rezerwacje?
 
+7. Jaki jest średni czas pobytu w hotelach resortowych a jaki w miejskich?
+
+8. Czy hotele resortowe mają wyższe oceny od gości niż hotele miejskie?
+
+
 ## Opis Danych
 
 Zbiór danych zawiera informacje o rezerwacjach w hotelach resortowych i miejskich. Dane obejmują takie zmienne jak: typ hotelu, data rezerwacji, liczba gości, długość pobytu, rodzaj pokoju, cena za noc, oceny gości oraz inne istotne informacje dotyczące rezerwacji i pobytu w hotelu. Dane zostały zebrane z różnych źródeł, w tym z systemów rezerwacyjnych hoteli oraz platform turystycznych.
