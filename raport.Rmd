@@ -19,13 +19,47 @@ city <- read_csv("hotele/City_hotels.csv")
 
 ```
 
-#Wstęp 
+# Wstęp 
 Celem niniejszego projektu jest analiza danych dotyczących hoteli resortowych oraz miejskich w celu zrozumienia różnic między tymi dwoma typami obiektów noclegowych. Badanie obejmuje porównanie takich aspektów, jak poziom cen, sezonowość obłożenia, struktura klientów, oceny gości czy strategie marketingowe. Wyniki analizy pozwolą wskazać czynniki wpływające na konkurencyjność hoteli w różnych lokalizacjach oraz sformułować rekomendacje dla zarządzających obiektami turystycznymi.
 
-#Pytania badawcze
+## Pytania badawcze
 1. Jakie są kluczowe różnice w poziomie cen między hotelami resortowymi a miejskimi?
+
 2. Jak lokalizacja wpływa na popularność obu typów hoteli?
+
 3. W jakim okresie hotele są rezerwowane najczęściej?
+
 4. Jakie pokoje są rezerwowane najczęściej?
+
 5. Które hotele wybierane są częściej resort czy city?
+
 6. Ilu osobowe są najczęściej rezerwacje? 
+
+## Opis Danych
+Zbiór danych zawiera informacje o rezerwacjach w hotelach resortowych i miejskich. Dane obejmują takie zmienne jak: typ hotelu, data rezerwacji, liczba gości, długość pobytu, rodzaj pokoju, cena za noc, oceny gości oraz inne istotne informacje dotyczące rezerwacji i pobytu w hotelu. Dane zostały zebrane z różnych źródeł, w tym z systemów rezerwacyjnych hoteli oraz platform turystycznych.
+
+zbiór danych zawiera 'r nrow(resort) + nrow(city) ' obserwacji i ' r ncol(resort) ' zmiennych dla hoteli resortowych oraz ' r ncol(city) ' zmiennych dla hoteli miejskich.
+
+Lista najważniejszych zmiennych w zbiorze danych:
+- Typ hotelu (resortowy/miejski)
+- Data rezerwacji
+- Liczba gości
+- Długość pobytu
+- Rodzaj pokoju
+- Cena za noc
+- Oceny gości
+- Sezonowość rezerwacji
+- Lokalizacja hotelu
+
+Opis najważniejszych zmiennych:
+- Typ hotelu: Kategoryczna zmienna określająca, czy hotel jest resortowy czy miejski.
+- Data rezerwacji: Zmienna datowa wskazująca dzień dokonania rezerwacji.
+- Liczba gości: Liczba osób objętych rezerwacją.
+- Długość pobytu: Liczba nocy, na które dokonano rezerwacji.
+- Rodzaj pokoju: Kategoryczna zmienna określająca typ zarezerwowanego pokoju (np. standardowy, deluxe, suite).
+- Cena za noc: Numeryczna zmienna wskazująca koszt jednej nocy pobytu w hotelu.
+- Oceny gości: Numeryczna zmienna reprezentująca średnią ocen wystawionych przez gości po pobycie w hotelu.
+- Sezonowość rezerwacji: Zmienna określająca, w jakim okresie roku dokonano rezerwacji (np. sezon wysoki, sezon niski).
+- Lokalizacja hotelu: Kategoryczna zmienna określająca, gdzie znajduje się hotel (np. nad morzem, w centrum miasta).
+
+
