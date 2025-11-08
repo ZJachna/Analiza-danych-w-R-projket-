@@ -9,7 +9,6 @@ output:
     downcute_theme: "default"
 ---
 
-
 ```{r setup, include=FALSE}
 ## Global options
 knitr::opts_chunk$set(cache = TRUE)
@@ -20,3 +19,9 @@ city <- read_csv("hotele/City_hotels.csv")
 
 ```
 
+#Wstęp 
+Celem niniejszego projektu jest analiza danych dotyczących hoteli resortowych oraz miejskich w celu zrozumienia różnic między tymi dwoma typami obiektów noclegowych. Badanie obejmuje porównanie takich aspektów, jak poziom cen, sezonowość obłożenia, struktura klientów, oceny gości czy strategie marketingowe. Wyniki analizy pozwolą wskazać czynniki wpływające na konkurencyjność hoteli w różnych lokalizacjach oraz sformułować rekomendacje dla zarządzających obiektami turystycznymi.
+
+#Pytania badawcze
+1. Jakie są kluczowe różnice w poziomie cen między hotelami resortowymi a miejskimi?
+2. Jak lokalizacja wpływa na popularność obu typów hoteli?
