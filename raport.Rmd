@@ -59,11 +59,7 @@ Lista najważniejszych zmiennych w zbiorze danych:
 - Sezonowość rezerwacji 
 - Lokalizacja hotelu
 
-<<<<<<< HEAD
-
-#Opis najważniejszych zmiennych: - Typ hotelu: Kategoryczna zmienna określająca, czy hotel jest resortowy czy miejski. - Data rezerwacji: Zmienna datowa wskazująca dzień dokonania rezerwacji. - Liczba gości: Liczba osób objętych rezerwacją. - Długość pobytu: Liczba nocy, na które dokonano rezerwacji. - Rodzaj pokoju: Kategoryczna zmienna określająca typ zarezerwowanego pokoju (np. standardowy, deluxe, suite). - Cena za noc: Numeryczna zmienna wskazująca koszt jednej nocy pobytu w hotelu. - Oceny gości: Numeryczna zmienna reprezentująca średnią ocen wystawionych przez gości po pobycie w hotelu. - Sezonowość rezerwacji: Zmienna określająca, w jakim okresie roku dokonano rezerwacji (np. sezon wysoki, sezon niski). - Lokalizacja hotelu: Kategoryczna zmienna określająca, gdzie znajduje się hotel (np. nad morzem, w centrum miasta).
-=======
-Opis najważniejszych zmiennych: 
+## Opis najważniejszych zmiennych: 
 - Typ hotelu: Kategoryczna zmienna określająca, czy hotel jest resortowy czy miejski.
 - Data rezerwacji: Zmienna datowa wskazująca dzień dokonania rezerwacji. - Liczba gości: Liczba osób objętych rezerwacją.
 - Długość pobytu: Liczba nocy, na które dokonano rezerwacji.
@@ -74,5 +70,4 @@ Opis najważniejszych zmiennych:
 - Lokalizacja hotelu: Kategoryczna zmienna określająca, gdzie znajduje się hotel (np.nad morzem, w centrum miasta).
 
 Test test sos pomidorowy
-
->>>>>>> af6af26a0db27118fe8b6d6d31fef4a086087e50
+działa?
