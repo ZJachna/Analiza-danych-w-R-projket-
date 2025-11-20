@@ -28,6 +28,19 @@ Celem projektu jest odpowiedź na wybrane pytania badawcze, które pozwolą lepi
 
 Przeprowadzenie kompleksowej analizy wymienionych zagadnień umożliwi wyciągnięcie wniosków dotyczących preferencji klientów, kluczowych czynników cenotwórczych oraz różnic między hotelami resortowymi a miejskimi. Wyniki projektu mogą być wykorzystane zarówno do optymalizacji strategii zarządzania obiektami hotelowymi, jak i do pogłębienia ogólnej wiedzy na temat zachowań konsumentów w branży turystycznej.
 
+## Cele projektu
+
+1. Określenie, które zmienne mają największy wpływ na cenę za noc w hotelach resortowych i miejskich, z wykorzystaniem metod statystycznych i modeli regresyjnych.
+
+2. Porównanie popularności typów hoteli (resortowych i miejskich) w oparciu o liczbę dokonanych rezerwacji.
+
+3. Określenie typowej liczby gości w rezerwacji, poprzez analizę najczęściej występujących wielkości grup.
+
+4. Porównanie średniej długości pobytu pomiędzy hotelami resortowymi a miejskimi.
+
+5. Ocena różnic w średnich ocenach gości dla hoteli resortowych i miejskich, w celu ustalenia, który typ obiektów oceniany jest wyżej.
+
+
 ## Pytania badawcze
 
 1.  Jakie zmienne mają największy wpływ na cenę za noc w hotalach resortowych i miejskich?
