@@ -19,7 +19,7 @@ city <- read_csv("hotele/City_hotels.csv")
 
 ```
 
-# Wstęp
+# 1. Wstęp
 Rynek usług hotelarskich jest jednym z kluczowych sektorów branży turystycznej, którego funkcjonowanie zależy od wielu zróżnicowanych czynników, takich jak typ obiektu, jego lokalizacja, sezonowość popytu czy preferencje klientów. Zrozumienie mechanizmów wpływających na decyzje rezerwacyjne gości oraz identyfikacja czynników kształtujących ceny i popularność hoteli stanowi istotny element analizy rynku turystycznego, szczególnie w kontekście rosnącej konkurencji między obiektami miejskimi a resortowymi.
 
 W niniejszym projekcie analizie poddano zbiór danych dotyczący rezerwacji hoteli, obejmujący takie zmienne jak: typ hotelu (resortowy lub miejski), datę rezerwacji, liczbę gości, długość pobytu, rodzaj pokoju, cenę za noc, oceny wystawiane przez gości, sezonowość rezerwacji oraz lokalizację obiektu. Zastosowanie narzędzi analitycznych w środowisku RStudio umożliwia zbadanie zależności pomiędzy tymi zmiennymi oraz identyfikację kluczowych wzorców zachowań rezerwacyjnych.
@@ -28,7 +28,7 @@ Celem projektu jest odpowiedź na wybrane pytania badawcze, które pozwolą lepi
 
 Przeprowadzenie kompleksowej analizy wymienionych zagadnień umożliwi wyciągnięcie wniosków dotyczących preferencji klientów, kluczowych czynników cenotwórczych oraz różnic między hotelami resortowymi a miejskimi. Wyniki projektu mogą być wykorzystane zarówno do optymalizacji strategii zarządzania obiektami hotelowymi, jak i do pogłębienia ogólnej wiedzy na temat zachowań konsumentów w branży turystycznej.
 
-## Cele projektu
+## 1.1. Cele projektu
 
 1. Określenie, które zmienne mają największy wpływ na cenę za noc w hotelach resortowych i miejskich, z wykorzystaniem metod statystycznych i modeli regresyjnych.
 
@@ -41,7 +41,7 @@ Przeprowadzenie kompleksowej analizy wymienionych zagadnień umożliwi wyciągni
 5. Ocena różnic w średnich ocenach gości dla hoteli resortowych i miejskich, w celu ustalenia, który typ obiektów oceniany jest wyżej.
 
 
-## Pytania badawcze
+## 1.2. Pytania badawcze
 
 1.  Jakie zmienne mają największy wpływ na cenę za noc w hotalach resortowych i miejskich?
 
@@ -60,7 +60,7 @@ Przeprowadzenie kompleksowej analizy wymienionych zagadnień umożliwi wyciągni
 8. Czy hotele resortowe mają wyższe oceny od gości niż hotele miejskie?
 
 
-## Opis Danych
+## 1.3. Opis Danych
 
 Zbiór danych zawiera informacje o rezerwacjach w hotelach resortowych i miejskich. Dane obejmują takie zmienne jak: typ hotelu, data rezerwacji, liczba gości, długość pobytu, rodzaj pokoju, cena za noc, oceny gości oraz inne istotne informacje dotyczące rezerwacji i pobytu w hotelu. Dane zostały zebrane z różnych źródeł, w tym z systemów rezerwacyjnych hoteli oraz platform turystycznych.
 
@@ -77,7 +77,7 @@ Lista najważniejszych zmiennych w zbiorze danych:
 - Sezonowość rezerwacji 
 - Lokalizacja hotelu
 
-## Opis najważniejszych zmiennych: 
+## 1.4. Opis najważniejszych zmiennych: 
 - Typ hotelu: Kategoryczna zmienna określająca, czy hotel jest resortowy czy miejski.
 - Data rezerwacji: Zmienna datowa wskazująca dzień dokonania rezerwacji. - Liczba gości: Liczba osób objętych rezerwacją.
 - Długość pobytu: Liczba nocy, na które dokonano rezerwacji.
@@ -87,7 +87,8 @@ Lista najważniejszych zmiennych w zbiorze danych:
 - Sezonowość rezerwacji: Zmienna określająca, w jakim okresie roku dokonano rezerwacji (np. sezon wysoki, sezon niski). 
 - Lokalizacja hotelu: Kategoryczna zmienna określająca, gdzie znajduje się hotel (np.nad morzem, w centrum miasta).
 
-# 2. Analiza braków danych
+# 2. 
+# 2.1. Braki danych
 
 ```{r}
 library(VIM)
@@ -114,3 +115,5 @@ VIM::aggr(City_hotels, col=c('navyblue','red'), numbers=TRUE, sortVars=TRUE, lab
 ```{r}
 VIM::aggr(Resort_hotels, col=c('navyblue','red'), numbers=TRUE, sortVars=TRUE, labels=names(Resort_hotels), cex.axis=.7, gap=3, ylab=c("Procent braków danych","Wzorzec braków danych"))
 ```
+
+# 2.2. Walidacja danych
