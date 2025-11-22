@@ -117,3 +117,10 @@ VIM::aggr(Resort_hotels, col=c('navyblue','red'), numbers=TRUE, sortVars=TRUE, l
 ```
 
 # 2.2. Walidacja danych
+```{r} <- validator(
+  ArrivalDateWeekNumber <= 53)
+```
+
+cf <- confront(Hotels, rules)
+summary(cf)
+barplot(cf)
