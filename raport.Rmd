@@ -20,12 +20,30 @@ city <- read_csv("hotele/City_hotels.csv")
 ```
 
 # Wstęp
+Rynek usług hotelarskich jest jednym z kluczowych sektorów branży turystycznej, którego funkcjonowanie zależy od wielu zróżnicowanych czynników, takich jak typ obiektu, jego lokalizacja, sezonowość popytu czy preferencje klientów. Zrozumienie mechanizmów wpływających na decyzje rezerwacyjne gości oraz identyfikacja czynników kształtujących ceny i popularność hoteli stanowi istotny element analizy rynku turystycznego, szczególnie w kontekście rosnącej konkurencji między obiektami miejskimi a resortowymi.
 
-Celem niniejszego projektu jest analiza danych dotyczących hoteli resortowych oraz miejskich w celu zrozumienia różnic między tymi dwoma typami obiektów noclegowych. Badanie obejmuje porównanie takich aspektów, jak poziom cen, sezonowość obłożenia, struktura klientów, oceny gości czy strategie marketingowe. Wyniki analizy pozwolą wskazać czynniki wpływające na konkurencyjność hoteli w różnych lokalizacjach oraz sformułować rekomendacje dla zarządzających obiektami turystycznymi.
+W niniejszym projekcie analizie poddano zbiór danych dotyczący rezerwacji hoteli, obejmujący takie zmienne jak: typ hotelu (resortowy lub miejski), datę rezerwacji, liczbę gości, długość pobytu, rodzaj pokoju, cenę za noc, oceny wystawiane przez gości, sezonowość rezerwacji oraz lokalizację obiektu. Zastosowanie narzędzi analitycznych w środowisku RStudio umożliwia zbadanie zależności pomiędzy tymi zmiennymi oraz identyfikację kluczowych wzorców zachowań rezerwacyjnych.
+
+Celem projektu jest odpowiedź na wybrane pytania badawcze, które pozwolą lepiej zrozumieć strukturę popytu na różne typy hoteli oraz czynniki wpływające na decyzje klientów. W szczególności analizie poddane zostaną kwestie związane z określeniem, jakie zmienne mają największy wpływ na cenę za noc w hotelach resortowych i miejskich, jak lokalizacja wpływa na popularność obu typów obiektów, a także w jakich okresach rezerwacje występują najczęściej. Dodatkowo projekt pozwoli ustalić, które rodzaje pokoi są najczęściej wybierane, jakiej wielkości są typowe rezerwacje, oraz czy hotele resortowe cieszą się wyższymi ocenami niż hotele miejskie. Ważnym elementem analizy będzie również porównanie średniej długości pobytu w hotelach różnych typów.
+
+Przeprowadzenie kompleksowej analizy wymienionych zagadnień umożliwi wyciągnięcie wniosków dotyczących preferencji klientów, kluczowych czynników cenotwórczych oraz różnic między hotelami resortowymi a miejskimi. Wyniki projektu mogą być wykorzystane zarówno do optymalizacji strategii zarządzania obiektami hotelowymi, jak i do pogłębienia ogólnej wiedzy na temat zachowań konsumentów w branży turystycznej.
+
+## Cele projektu
+
+1. Określenie, które zmienne mają największy wpływ na cenę za noc w hotelach resortowych i miejskich, z wykorzystaniem metod statystycznych i modeli regresyjnych.
+
+2. Porównanie popularności typów hoteli (resortowych i miejskich) w oparciu o liczbę dokonanych rezerwacji.
+
+3. Określenie typowej liczby gości w rezerwacji, poprzez analizę najczęściej występujących wielkości grup.
+
+4. Porównanie średniej długości pobytu pomiędzy hotelami resortowymi a miejskimi.
+
+5. Ocena różnic w średnich ocenach gości dla hoteli resortowych i miejskich, w celu ustalenia, który typ obiektów oceniany jest wyżej.
+
 
 ## Pytania badawcze
 
-1.  Jakie są kluczowe różnice w poziomie cen między hotelami resortowymi a miejskimi?
+1.  Jakie zmienne mają największy wpływ na cenę za noc w hotalach resortowych i miejskich?
 
 2.  Jak lokalizacja wpływa na popularność obu typów hoteli?
 
@@ -69,5 +87,8 @@ Lista najważniejszych zmiennych w zbiorze danych:
 - Sezonowość rezerwacji: Zmienna określająca, w jakim okresie roku dokonano rezerwacji (np. sezon wysoki, sezon niski). 
 - Lokalizacja hotelu: Kategoryczna zmienna określająca, gdzie znajduje się hotel (np.nad morzem, w centrum miasta).
 
+<<<<<<< HEAD
 Test test sos pomidorowy
 działa?
+=======
+>>>>>>> 3c18a17bc77a5adb5a94150e15b4df5860733535
