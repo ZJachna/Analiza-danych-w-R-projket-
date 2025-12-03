@@ -153,4 +153,7 @@ VIM::aggr(Resort_hotels, col=c('navyblue','red'), numbers=TRUE, sortVars=TRUE, l
 cf <- confront(Hotels, rules)
 summary(cf)
 barplot(cf)
+<<<<<<< HEAD
 >>>>>>> bb7ecbae4947ca900bfcf69cac4721656ca5d5bf
+=======
+>>>>>>> b3e37bbf92aad8d9bdc6cce235b33cbf1c20b512
