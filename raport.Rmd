@@ -133,6 +133,7 @@ VIM::aggr(Resort_hotels, col=c('navyblue','red'), numbers=TRUE, sortVars=TRUE, l
 <<<<<<< HEAD
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 VIM::aggr(Resort_hotels, col=c('navyblue','red'), numbers=TRUE, sortVars=TRUE, labels=names(Resort_hotels), cex.axis=.7, gap=3, ylab=c("Procent braków danych","Wzorzec braków danych")) 
 >>>>>>> 97558c546f528e7eb43e6a75cd6b5a672e0b3e30
 =======
@@ -143,3 +144,13 @@ VIM::aggr(Resort_hotels, col=c('navyblue','red'), numbers=TRUE, sortVars=TRUE, l
 
 # 2.2. Walidacja danych
 >>>>>>> da2b1518f3b75c193db61bd8c263f9c01c0a8cee
+=======
+# 2.2. Walidacja danych
+```{r} <- validator(
+  ArrivalDateWeekNumber <= 53)
+```
+
+cf <- confront(Hotels, rules)
+summary(cf)
+barplot(cf)
+>>>>>>> bb7ecbae4947ca900bfcf69cac4721656ca5d5bf
