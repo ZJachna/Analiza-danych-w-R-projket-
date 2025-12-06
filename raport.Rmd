@@ -51,7 +51,7 @@ Przeprowadzenie kompleksowej analizy wymienionych zagadnień umożliwi wyciągni
 
 4.  Jakie pokoje są rezerwowane najczęściej?
 
-5.  Które hotele wybierane są częściej resort czy city?
+5.  Jak często rezerwacje są anulowane?
 
 6.  Ilu osobowe są najczęściej rezerwacje?
 
@@ -159,4 +159,23 @@ ggplot(check_out_count, aes(x = ID, y = Check_out, fill = ID)) +
        y = "Liczba rezerwacji") +
   theme_minimal()
 
+jak czesto rezerwacje sa anulowane?
 
+library(dplyr)
+library(ggplot2)
+
+status_count <- Hotels %>%
+group_by(IsCanceled, ReservationStatus) %>%
+summarise(Count = n(), .groups = "drop")
+
+status_count$IsCanceled <- factor(status_count$IsCanceled,
+                                  levels = c("0", "1"),
+                                  labels = c("Not canceled (Check-out)", "Canceled"))
+
+ggplot(status_count, aes(x = ReservationStatus, y = Count, fill = IsCanceled)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  labs(title = "Liczba rezerwacji: anulowane vs zrealizowane",
+       x = "Status rezerwacji",
+       y = "Liczba rezerwacji",
+       fill = "Typ rezerwacji") +
+  theme_minimal()
