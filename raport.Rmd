@@ -95,18 +95,16 @@ library(VIM)
 
 library(readr)
 City_hotels <- read_csv("hotele/City_hotels.csv")
-View(City_hotels)
 
 library(readr)
 Resort_hotels <- read_csv("hotele/Resort_hotels.csv")
-View(Resort_hotels)
 
 library(dplyr)
 City_hotels$ID <- "city"
 Resort_hotels$ID <- "resort"
 
 Hotels <- rbind(City_hotels, Resort_hotels)
-View(Hotels)
+write.csv(Hotels, "hotele/Hotels.csv")
 ```
 
 ```{r}
@@ -136,4 +134,29 @@ rules <- validator(
 cf <- confront(Hotels, rules)
 summary(cf)
 plot(cf)
+
+# 2.3 Wizualizacja danych
+
+Porównanie popularności typów hoteli (resortowych i miejskich) w oparciu o liczbę dokonanych rezerwacji.
+
+library(dplyr)
+
+Grupowanie i zliczanie rezerwacji
+
+check_out_count <- Hotels %>%
+  filter(ReservationStatus == "Check-Out") %>% 
+  group_by(ID) %>%                              
+  summarise(Check_out = n())
+
+check_out_count
+
+library(ggplot2)
+
+ggplot(check_out_count, aes(x = ID, y = Check_out, fill = ID)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Liczba rezerwacji zakończonych (Check-Out) w hotelach resortowych i miejskich",
+       x = "Typ hotelu",
+       y = "Liczba rezerwacji") +
+  theme_minimal()
+
 
