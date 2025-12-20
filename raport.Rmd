@@ -115,6 +115,9 @@ VIM::aggr(Resort_hotels, col=c('navyblue','red'), numbers=TRUE, sortVars=TRUE, l
 ```
 
 # 2.2. Walidacja danych
+Celem etapu walidacji było sprawdzenie poprawności, spójności oraz kompletności zbioru danych dotyczącego hoteli miejskich i resortowych, tak aby zapewnić wiarygodność dalszych analiz i wizualizacji.
+
+```{r}
 library(validate)
 
 rules <- validator(
@@ -130,26 +133,40 @@ rules <- validator(
   stays_in_weekend_nights + stays_in_week_nights >= 1,
   !is.na(country)
 )
-
+```
+```{r}
 cf <- confront(Hotels, rules)
 summary(cf)
 plot(cf)
+```
+Walidacja danych została przeprowadzona przy użyciu zdefiniowanych reguł walidacyjnych (V01, V02), które sprawdzały poprawność logiczną oraz zakres wartości zmiennych w zbiorze danych.
+
+Na wykresie przedstawiono wyniki walidacji według reguł. Dla obu reguł (V01 oraz V02) 100% obserwacji spełnia założone kryteria poprawności. Nie stwierdzono żadnych przypadków naruszenia reguł (0% błędów) ani brakujących danych.
+
+Łącznie zwalidowano 239 tys. obserwacji, z czego każda została zakwalifikowana jako poprawna. Oznacza to, że dane są:
+- spójne logicznie,
+- kompletne,
+- wolne od błędów strukturalnych i zakresowych.
+
+Na podstawie przeprowadzonej walidacji zbiór danych został uznany za w pełni poprawny i gotowy do dalszej analizy eksploracyjnej oraz wizualizacji.
 
 # 2.3 Wizualizacja danych
 
-Porównanie popularności typów hoteli (resortowych i miejskich) w oparciu o liczbę dokonanych rezerwacji.
-
+1. Porównanie popularności typów hoteli (resortowych i miejskich) w oparciu o liczbę dokonanych rezerwacji.
+```{r}
 library(dplyr)
-
+```
 Grupowanie i zliczanie rezerwacji
-
+```{r}
 check_out_count <- Hotels %>%
   filter(ReservationStatus == "Check-Out") %>% 
   group_by(ID) %>%                              
   summarise(Check_out = n())
-
+```
+```{r}
 check_out_count
-
+```
+```{r}
 library(ggplot2)
 
 ggplot(check_out_count, aes(x = ID, y = Check_out, fill = ID)) +
@@ -158,9 +175,13 @@ ggplot(check_out_count, aes(x = ID, y = Check_out, fill = ID)) +
        x = "Typ hotelu",
        y = "Liczba rezerwacji") +
   theme_minimal()
+```
+Z wykresu wynika, że w hotelach miejskich liczba zakończonych rezerwacji jest wyraźnie większa niż w hotelach resortowych. Oznacza to, że hotele miejskie obsługują więcej pobytów w ciągu roku.
 
-jak czesto rezerwacje sa anulowane?
+Może to wynikać z faktu, że pobyty w hotelach miejskich są częściej krótkie, natomiast w hotelach resortowych goście zwykle zatrzymują się na dłużej. Dlatego mniejsza liczba check-outów w hotelach resortowych nie musi oznaczać mniejszego obłożenia.
 
+2. Jak czesto rezerwacje sa anulowane?
+```{r}
 library(dplyr)
 library(ggplot2)
 
@@ -179,3 +200,72 @@ ggplot(status_count, aes(x = ReservationStatus, y = Count, fill = IsCanceled)) +
        y = "Liczba rezerwacji",
        fill = "Typ rezerwacji") +
   theme_minimal()
+```
+
+Z wykresu wynika, że najwięcej rezerwacji zostało zrealizowanych (check-out), natomiast liczba anulowanych rezerwacji jest wyraźnie mniejsza. Oznacza to, że większość klientów faktycznie korzysta z dokonanych rezerwacji.
+
+Liczba rezerwacji typu no-show jest bardzo niska, co sugeruje, że problem niepojawienia się gości w hotelach występuje rzadko.
+
+Ogólnie dane pokazują, że proces realizacji rezerwacji jest stabilny, a anulacje stanowią istotną, ale mniejszą część wszystkich rezerwacji.
+
+```{r}
+library(tidyverse)
+library(broom)
+month_levels <- c("January","February","March","April","May","June",
+                  "July","August","September","October","November","December")
+hotels <- Hotels %>%
+  mutate(
+    arrival_date_month = factor(.data[["ArrivalDateMonth"]],
+                                levels = month_levels,
+                                ordered = TRUE),
+    total_nights = .data[["StaysInWeekendNights"]] + .data[["StaysInWeekNights"]],
+    group_size = .data[["Adults"]] + .data[["Children"]] + .data[["Babies"]],
+    is_canceled = factor(.data[["IsCanceled"]],
+                         levels = c(0, 1),
+                         labels = c("Not canceled (Check-out)", "Canceled"))
+  )
+
+fit_city <- lm(
+  ADR ~ LeadTime + total_nights + group_size +
+    arrival_date_month + ReservedRoomType + CustomerType,
+  data = hotels %>% filter(ID == "city")
+)
+
+fit_resort <- lm(
+  ADR ~ LeadTime + total_nights + group_size +
+    arrival_date_month + ReservedRoomType + CustomerType,
+  data = hotels %>% filter(ID == "resort")
+)
+
+coef_df <- bind_rows(
+  tidy(fit_city) %>% mutate(ID = "city"),
+  tidy(fit_resort) %>% mutate(ID = "resort")
+) %>%
+  filter(term != "(Intercept)") %>%
+  mutate(term = forcats::fct_reorder(term, estimate))
+
+ggplot(coef_df, aes(x = estimate, y = term, color = ID)) +
+  geom_vline(xintercept = 0, linetype = "dashed") +
+  geom_point(size = 2) +
+  geom_errorbar(
+    aes(
+      xmin = estimate - 1.96 * std.error,
+      xmax = estimate + 1.96 * std.error
+    ),
+    height = 0.2,
+    orientation = "y"
+  ) +
+  labs(
+    title = "Wpływ zmiennych na cenę (ADR) – porównanie modeli",
+    x = "Współczynnik",
+    y = "Zmienna",
+    color = "Typ hotelu (ID)"
+  ) +
+  theme_minimal()
+```
+
+Z przeprowadzonej analizy wynika, że największy wpływ na cenę za noc (ADR) ma typ pokoju oraz miesiąc przyjazdu. Bardziej prestiżowe pokoje istotnie podnoszą cenę, a efekt ten jest silniejszy w hotelach resortowych niż w miejskich.
+
+Widoczna jest także sezonowość cen, szczególnie w hotelach resortowych, gdzie ceny w miesiącach letnich są wyraźnie wyższe. W hotelach miejskich wpływ sezonu jest słabszy, co wskazuje na bardziej stabilny popyt w ciągu roku.
+
+Pozostałe zmienne, takie jak liczba gości, długość pobytu czy czas wyprzedzenia rezerwacji, mają znacznie mniejszy wpływ na cenę. Oznacza to, że polityka cenowa hoteli opiera się głównie na standardzie pokoju i sezonie, a nie na charakterystykach samej rezerwacji.
