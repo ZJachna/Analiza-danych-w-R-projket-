@@ -87,8 +87,8 @@ Lista najważniejszych zmiennych w zbiorze danych:
 - Sezonowość rezerwacji: Zmienna określająca, w jakim okresie roku dokonano rezerwacji (np. sezon wysoki, sezon niski). 
 - Lokalizacja hotelu: Kategoryczna zmienna określająca, gdzie znajduje się hotel (np.nad morzem, w centrum miasta).
 
-# 2. 
-# 2.1. Braki danych
+# 2. Analiza danych
+## 2.1. Braki danych
 
 ```{r}
 library(VIM)
@@ -114,7 +114,7 @@ VIM::aggr(City_hotels, col=c('navyblue','red'), numbers=TRUE, sortVars=TRUE, lab
 VIM::aggr(Resort_hotels, col=c('navyblue','red'), numbers=TRUE, sortVars=TRUE, labels=names(Resort_hotels), cex.axis=.7, gap=3, ylab=c("Procent braków danych","Wzorzec braków danych"))
 ```
 
-# 2.2. Walidacja danych
+## 2.2. Walidacja danych
 Celem etapu walidacji było sprawdzenie poprawności, spójności oraz kompletności zbioru danych dotyczącego hoteli miejskich i resortowych, tak aby zapewnić wiarygodność dalszych analiz i wizualizacji.
 
 ```{r}
@@ -150,7 +150,139 @@ Na wykresie przedstawiono wyniki walidacji według reguł. Dla obu reguł (V01 o
 
 Na podstawie przeprowadzonej walidacji zbiór danych został uznany za w pełni poprawny i gotowy do dalszej analizy eksploracyjnej oraz wizualizacji.
 
-# 2.3 Wizualizacja danych
+## 2.3. Statystyki opisowe
+Celem niniejszego podrozdziału jest przedstawienie podstawowej charakterystyki statystycznej analizowanego zbioru danych. Statystyka opisowa pozwala na wstępne rozpoznanie struktury danych, ocenę ich zróżnicowania oraz identyfikację potencjalnych wartości skrajnych, które mogą mieć istotne znaczenie w dalszych etapach analizy.
+```{r}
+library(dplyr)
+library(tidyr)
+
+statystyka_opisowa <- Hotels %>%
+  select(
+    ADR,
+    LeadTime,
+    StaysInWeekendNights,
+    StaysInWeekNights,
+    Adults,
+    Children,
+    Babies,
+    ArrivalDateWeekNumber,
+    ArrivalDateDayOfMonth
+  ) %>%
+  pivot_longer(
+    cols = everything(),
+    names_to = "Zmienna",
+    values_to = "Wartosc"
+  ) %>%
+  group_by(Zmienna) %>%
+  summarise(
+    Srednia = mean(Wartosc, na.rm = TRUE),
+    Mediana = median(Wartosc, na.rm = TRUE),
+    Odch_Std = sd(Wartosc, na.rm = TRUE),
+    Minimum = min(Wartosc, na.rm = TRUE),
+    Maksimum = max(Wartosc, na.rm = TRUE),
+    .groups = "drop"
+  )
+
+statystyka_opisowa
+```
+Wnioski:
+
+Średnia dzienna cena pokoju (ADR) wynosi około 101,8, przy medianie 94,6, co wskazuje na prawostronną asymetrię rozkładu cen. Potwierdza to bardzo wysokie maksimum (5400), sugerujące występowanie pojedynczych, skrajnie drogich rezerwacji, które podnoszą wartość średnią. Duże odchylenie standardowe (50,5) świadczy o znacznym zróżnicowaniu cen.
+
+Czas wyprzedzenia rezerwacji (LeadTime) charakteryzuje się dużą zmiennością. Średnia wynosi około 104 dni, natomiast mediana jedynie 69 dni, co ponownie wskazuje na asymetrię prawostronną. Maksymalna wartość (737 dni) pokazuje, że część rezerwacji dokonywana jest z bardzo dużym wyprzedzeniem, choć większość klientów rezerwuje pobyt znacznie bliżej daty przyjazdu.
+
+Liczba dorosłych gości (Adults) w rezerwacji wynosi przeciętnie 1,86 osoby, przy medianie równej 2, co oznacza, że najczęściej rezerwacje dotyczą dwóch dorosłych osób. Maksimum na poziomie 55 sugeruje obecność nietypowych, zbiorowych rezerwacji (np. grupowych).
+
+Liczba dzieci i niemowląt w rezerwacjach jest relatywnie niska. Mediana równa 0 zarówno dla dzieci, jak i niemowląt wskazuje, że większość rezerwacji dotyczy osób dorosłych bez dzieci. Jednocześnie występują pojedyncze obserwacje z większą liczbą dzieci, co potwierdzają maksymalne wartości (do 10).
+
+Długość pobytu jest umiarkowana. Zarówno liczba noclegów w tygodniu, jak i w weekendy ma medianę odpowiednio 2 i 1, co sugeruje, że typowy pobyt trwa kilka dni. Odchylenia standardowe bliskie 1 wskazują na stosunkowo niewielkie zróżnicowanie długości pobytów.
+
+Zmienne kalendarzowe (dzień miesiąca oraz numer tygodnia) mają rozkłady zbliżone do równomiernych, co jest zgodne z ich naturą i nie wskazuje na koncentrację rezerwacji w jednym konkretnym dniu lub tygodniu.
+
+Podsumowując:
+
+Analiza statystyki opisowej wskazuje, że dane charakteryzują się obecnością wartości skrajnych, szczególnie w przypadku ceny pokoju oraz czasu wyprzedzenia rezerwacji. Typowa rezerwacja dotyczy dwóch dorosłych osób, bez dzieci, na pobyt krótki, a ceny oraz terminy rezerwacji wykazują znaczną zmienność, co uzasadnia dalsze analizy.
+
+## 2.4. Analiza korelacji
+W dalszej części analizy podjęto próbę oceny zależności pomiędzy wybranymi zmiennymi ilościowymi opisującymi rezerwacje hotelowe. Analiza korelacji pozwala na określenie siły oraz kierunku współzależności między zmiennymi. Stanowi ona ważny etap eksploracji danych, umożliwiający wstępną identyfikację relacji, które mogą mieć znaczenie w dalszych etapach badań.
+
+Korelacja Pearsona:
+```{r}
+library(dplyr)
+library(ggcorrplot)
+library(Hmisc)
+
+corr_data <- Hotels %>%
+  transmute(
+    ADR,
+    LeadTime,
+    Adults,
+    Children,
+    Babies,
+    StaysInWeekendNights,
+    StaysInWeekNights,
+    ArrivalDateDayOfMonth,
+    ArrivalDateWeekNumber,
+    total_nights = StaysInWeekendNights + StaysInWeekNights,
+    group_size = Adults + Children + Babies
+  )
+
+rc_p <- Hmisc::rcorr(as.matrix(corr_data), type = "pearson")
+cor_pearson <- rc_p$r
+p_pearson <- rc_p$P
+
+ggcorrplot(
+  cor_pearson,
+  hc.order = TRUE,
+  type = "upper",
+  lab = TRUE,
+  lab_size = 2.6,
+  p.mat = p_pearson,
+  sig.level = 0.05,
+  insig = "blank"
+)
+```
+Analiza korelacji Pearsona wskazuje, że większość zależności pomiędzy badanymi zmiennymi ma słabą siłę. Silne dodatnie korelacje występują jedynie pomiędzy zmiennymi agregowanymi, takimi jak łączna liczba noclegów i jej składowe oraz wielkość grupy i liczba osób w rezerwacji, co wynika bezpośrednio z ich definicji. Zmienna ADR oraz czas wyprzedzenia rezerwacji (LeadTime) nie wykazują istotnych liniowych zależności z pozostałymi cechami. Otrzymane wyniki sugerują względną niezależność analizowanych zmiennych i uzasadniają zastosowanie dalszych metod analitycznych.
+
+Korelacja Spearmana:
+```{r}
+corr_data <- Hotels %>%
+  transmute(
+    ADR,
+    LeadTime,
+    Adults,
+    Children,
+    Babies,
+    StaysInWeekendNights,
+    StaysInWeekNights,
+    ArrivalDateDayOfMonth,
+    ArrivalDateWeekNumber,
+    total_nights = StaysInWeekendNights + StaysInWeekNights,
+    group_size = Adults + Children + Babies
+  )
+
+corr_data <- corr_data %>% select(where(~ sd(.x, na.rm = TRUE) > 0))
+
+rc_s <- Hmisc::rcorr(as.matrix(corr_data), type = "spearman")
+cor_spearman <- rc_s$r
+p_spearman <- rc_s$P
+
+ggcorrplot(
+  cor_spearman,
+  hc.order = TRUE,
+  type = "upper",
+  lab = TRUE,
+  lab_size = 2.6,
+  p.mat = p_spearman,
+  sig.level = 0.05,
+  insig = "blank"
+)
+```
+Analiza korelacji Spearmana potwierdza, że większość zależności pomiędzy badanymi zmiennymi ma słabą lub umiarkowaną siłę. Najsilniejsze dodatnie korelacje występują pomiędzy łączną liczbą noclegów a liczbą noclegów w tygodniu oraz w weekendy, a także pomiędzy wielkością grupy i liczbą dorosłych oraz dzieci, co wynika z konstrukcji tych zmiennych.
+
+Zmienna ADR wykazuje jedynie słabe, dodatnie korelacje z wielkością grupy i liczbą dorosłych, co sugeruje, że wzrost liczby osób w rezerwacji nie wiąże się istotnie ze wzrostem ceny pokoju. Korelacje pomiędzy czasem wyprzedzenia rezerwacji a pozostałymi zmiennymi są niewielkie, podobnie jak zależności związane ze zmiennymi kalendarzowymi. Wyniki Spearmana, odporne na wartości skrajne, potwierdzają wnioski uzyskane na podstawie korelacji Pearsona.
+
+## 2.5 Wizualizacja danych
 
 1. Porównanie popularności typów hoteli (resortowych i miejskich) w oparciu o liczbę dokonanych rezerwacji.
 ```{r}
