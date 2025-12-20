@@ -208,6 +208,7 @@ Liczba rezerwacji typu no-show jest bardzo niska, co sugeruje, że problem niepo
 
 Ogólnie dane pokazują, że proces realizacji rezerwacji jest stabilny, a anulacje stanowią istotną, ale mniejszą część wszystkich rezerwacji.
 
+3. Jakie zmienne mają największy wpływ na cenę za noc w hotelach resortowych i miejskich?
 ```{r}
 library(tidyverse)
 library(broom)
