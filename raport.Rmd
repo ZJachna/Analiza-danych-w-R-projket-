@@ -285,17 +285,16 @@ Zmienna ADR wykazuje jedynie słabe, dodatnie korelacje z wielkością grupy i l
 ## 2.5 Wizualizacja danych
 
 1. Porównanie popularności typów hoteli (resortowych i miejskich) w oparciu o liczbę dokonanych rezerwacji.
-```{r}
-library(dplyr)
-```
+
 Grupowanie i zliczanie rezerwacji
 ```{r}
+library(dplyr)
+
 check_out_count <- Hotels %>%
   filter(ReservationStatus == "Check-Out") %>% 
   group_by(ID) %>%                              
   summarise(Check_out = n())
-```
-```{r}
+
 check_out_count
 ```
 ```{r}
@@ -344,61 +343,65 @@ Ogólnie dane pokazują, że proces realizacji rezerwacji jest stabilny, a anula
 ```{r}
 library(tidyverse)
 library(broom)
-month_levels <- c("January","February","March","April","May","June",
-                  "July","August","September","October","November","December")
-hotels <- Hotels %>%
+
+hotels_clean <- Hotels %>%
+  filter(IsCanceled == 0) %>%
   mutate(
-    arrival_date_month = factor(.data[["ArrivalDateMonth"]],
-                                levels = month_levels,
-                                ordered = TRUE),
-    total_nights = .data[["StaysInWeekendNights"]] + .data[["StaysInWeekNights"]],
-    group_size = .data[["Adults"]] + .data[["Children"]] + .data[["Babies"]],
-    is_canceled = factor(.data[["IsCanceled"]],
-                         levels = c(0, 1),
-                         labels = c("Not canceled (Check-out)", "Canceled"))
+    ID = factor(ID),            # city / resort
+    Meal = factor(Meal),
+    CustomerType = factor(CustomerType)
   )
 
-fit_city <- lm(
-  ADR ~ LeadTime + total_nights + group_size +
-    arrival_date_month + ReservedRoomType + CustomerType,
-  data = hotels %>% filter(ID == "city")
+model <- lm(ADR ~ LeadTime + StaysInWeekendNights + StaysInWeekNights + Adults + Children + TotalOfSpecialRequests + RequiredCarParkingSpaces + ID,
+  data = hotels_clean
 )
 
-fit_resort <- lm(
-  ADR ~ LeadTime + total_nights + group_size +
-    arrival_date_month + ReservedRoomType + CustomerType,
-  data = hotels %>% filter(ID == "resort")
-)
-
-coef_df <- bind_rows(
-  tidy(fit_city) %>% mutate(ID = "city"),
-  tidy(fit_resort) %>% mutate(ID = "resort")
-) %>%
+coef_plot_data <- tidy(model) %>%
   filter(term != "(Intercept)") %>%
-  mutate(term = forcats::fct_reorder(term, estimate))
+  mutate(
+    term = recode(term,
+      LeadTime = "Lead time",
+      StaysInWeekendNights = "Weekend nights",
+      StaysInWeekNights = "Week nights",
+      Adults = "Adults",
+      Children = "Children",
+      TotalOfSpecialRequests = "Special requests",
+      RequiredCarParkingSpaces = "Parking spaces",
+      IDresort = "Hotel resortowy"
+    )
+  )
 
-ggplot(coef_df, aes(x = estimate, y = term, color = ID)) +
-  geom_vline(xintercept = 0, linetype = "dashed") +
-  geom_point(size = 2) +
+ggplot(coef_plot_data, aes(x = estimate, y = reorder(term, estimate))) +
+  geom_vline(xintercept = 0, linetype = "dashed", color = "grey50") +
+  geom_point(size = 4, color = "#2C7FB8") +
   geom_errorbar(
     aes(
-      xmin = estimate - 1.96 * std.error,
-      xmax = estimate + 1.96 * std.error
+      xmin = estimate - std.error,
+      xmax = estimate + std.error
     ),
+    orientation = "y",
     height = 0.2,
-    orientation = "y"
+    color = "#2C7FB8"
   ) +
   labs(
-    title = "Wpływ zmiennych na cenę (ADR) – porównanie modeli",
-    x = "Współczynnik",
-    y = "Zmienna",
-    color = "Typ hotelu (ID)"
+    title = "Jakie zmienne mają największy wpływ na cenę za noc?",
+    subtitle = "Porównanie hoteli miejskich i resortowych",
+    x = "Wpływ na ADR",
+    y = NULL,
+    caption = "Model liniowy | Dane: Hotels.csv"
   ) +
-  theme_minimal()
+  theme_minimal(base_size = 13)
+
+#dodatnie wartości - zmienna zwiększa cenę za noc
+#ujemne wartości - zmienna zmniejsza cenę za noc
 ```
+Na podstawie przeprowadzonego modelu liniowego można wskazać kilka kluczowych zmiennych wpływających na cenę za noc (ADR) w hotelach miejskich i resortowych.
 
-Z przeprowadzonej analizy wynika, że największy wpływ na cenę za noc (ADR) ma typ pokoju oraz miesiąc przyjazdu. Bardziej prestiżowe pokoje istotnie podnoszą cenę, a efekt ten jest silniejszy w hotelach resortowych niż w miejskich.
+Najsilniejszy pozytywny wpływ na cenę za noc ma liczba dzieci oraz dorosłych w rezerwacji – im więcej gości, tym wyższa cena ADR. Wysoki wpływ ma również liczba wymaganych miejsc parkingowych oraz liczba specjalnych życzeń, co może wskazywać na wyższy standard lub bardziej wymagających klientów.
 
-Widoczna jest także sezonowość cen, szczególnie w hotelach resortowych, gdzie ceny w miesiącach letnich są wyraźnie wyższe. W hotelach miejskich wpływ sezonu jest słabszy, co wskazuje na bardziej stabilny popyt w ciągu roku.
+Liczba noclegów w dni robocze ma niewielki, ale dodatni wpływ na cenę, natomiast noclegi weekendowe oraz czas wyprzedzenia rezerwacji (lead time) nie wykazują istotnego wpływu na ADR.
 
-Pozostałe zmienne, takie jak liczba gości, długość pobytu czy czas wyprzedzenia rezerwacji, mają znacznie mniejszy wpływ na cenę. Oznacza to, że polityka cenowa hoteli opiera się głównie na standardzie pokoju i sezonie, a nie na charakterystykach samej rezerwacji.
+Zmienna „hotel resortowy” ma wyraźnie ujemny wpływ na cenę za noc, co oznacza, że przy pozostałych czynnikach stałych, hotele resortowe oferują średnio niższą cenę ADR niż hotele miejskie.
+
+Podsumowanie:
+Cena za noc w hotelach jest przede wszystkim determinowana przez liczbę gości i dodatkowe wymagania klienta, natomiast hotele resortowe charakteryzują się niższą średnią ceną za noc w porównaniu do hoteli miejskich.
