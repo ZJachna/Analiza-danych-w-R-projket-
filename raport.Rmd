@@ -20,6 +20,7 @@ city <- read_csv("hotele/City_hotels.csv")
 ```
 
 # 1. Wstęp
+
 Rynek usług hotelarskich jest jednym z kluczowych sektorów branży turystycznej, którego funkcjonowanie zależy od wielu zróżnicowanych czynników, takich jak typ obiektu, jego lokalizacja, sezonowość popytu czy preferencje klientów. Zrozumienie mechanizmów wpływających na decyzje rezerwacyjne gości oraz identyfikacja czynników kształtujących ceny i popularność hoteli stanowi istotny element analizy rynku turystycznego, szczególnie w kontekście rosnącej konkurencji między obiektami miejskimi a resortowymi.
 
 W niniejszym projekcie analizie poddano zbiór danych dotyczący rezerwacji hoteli, obejmujący takie zmienne jak: typ hotelu (resortowy lub miejski), datę rezerwacji, liczbę gości, długość pobytu, rodzaj pokoju, cenę za noc, oceny wystawiane przez gości, sezonowość rezerwacji oraz lokalizację obiektu. Zastosowanie narzędzi analitycznych w środowisku RStudio umożliwia zbadanie zależności pomiędzy tymi zmiennymi oraz identyfikację kluczowych wzorców zachowań rezerwacyjnych.
@@ -30,16 +31,15 @@ Przeprowadzenie kompleksowej analizy wymienionych zagadnień umożliwi wyciągni
 
 ## 1.1. Cele projektu
 
-1. Określenie, które zmienne mają największy wpływ na cenę za noc w hotelach resortowych i miejskich, z wykorzystaniem metod statystycznych i modeli regresyjnych.
+1.  Określenie, które zmienne mają największy wpływ na cenę za noc w hotelach resortowych i miejskich, z wykorzystaniem metod statystycznych i modeli regresyjnych.
 
-2. Porównanie popularności typów hoteli (resortowych i miejskich) w oparciu o liczbę dokonanych rezerwacji.
+2.  Porównanie popularności typów hoteli (resortowych i miejskich) w oparciu o liczbę dokonanych rezerwacji.
 
-3. Określenie typowej liczby gości w rezerwacji, poprzez analizę najczęściej występujących wielkości grup.
+3.  Określenie typowej liczby gości w rezerwacji, poprzez analizę najczęściej występujących wielkości grup.
 
-4. Porównanie średniej długości pobytu pomiędzy hotelami resortowymi a miejskimi.
+4.  Porównanie średniej długości pobytu pomiędzy hotelami resortowymi a miejskimi.
 
-5. Ocena różnic w średnich ocenach gości dla hoteli resortowych i miejskich, w celu ustalenia, który typ obiektów oceniany jest wyżej.
-
+5.  Ocena różnic w średnich ocenach gości dla hoteli resortowych i miejskich, w celu ustalenia, który typ obiektów oceniany jest wyżej.
 
 ## 1.2. Pytania badawcze
 
@@ -55,10 +55,9 @@ Przeprowadzenie kompleksowej analizy wymienionych zagadnień umożliwi wyciągni
 
 6.  Ilu osobowe są najczęściej rezerwacje?
 
-7. Jaki jest średni czas pobytu w hotelach resortowych a jaki w miejskich?
+7.  Jaki jest średni czas pobytu w hotelach resortowych a jaki w miejskich?
 
-8. Jaki procent liczby osób stanowią poszczególne grupy? (Adults, Children,Babies)
-
+8.  Jaki procent liczby osób stanowią poszczególne grupy? (Adults, Children,Babies)
 
 ## 1.3. Opis Danych
 
@@ -66,28 +65,21 @@ Zbiór danych zawiera informacje o rezerwacjach w hotelach resortowych i miejski
 
 zbiór danych zawiera 'r nrow(resort) + nrow(city) ' obserwacji i ' r ncol(resort) ' zmiennych dla hoteli resortowych oraz ' r ncol(city) ' zmiennych dla hoteli miejskich.
 
-Lista najważniejszych zmiennych w zbiorze danych: 
-- Typ hotelu (resortowy/miejski) 
-- Data rezerwacji 
-- Liczba gości 
-- Długość pobytu 
-- Rodzaj pokoju 
-- Cena za noc 
-- Oceny gości 
-- Sezonowość rezerwacji 
-- Lokalizacja hotelu
+Lista najważniejszych zmiennych w zbiorze danych: - Typ hotelu (resortowy/miejski) - Data rezerwacji - Liczba gości - Długość pobytu - Rodzaj pokoju - Cena za noc - Oceny gości - Sezonowość rezerwacji - Lokalizacja hotelu
 
-## 1.4. Opis najważniejszych zmiennych: 
-- Typ hotelu: Kategoryczna zmienna określająca, czy hotel jest resortowy czy miejski.
-- Data rezerwacji: Zmienna datowa wskazująca dzień dokonania rezerwacji. - Liczba gości: Liczba osób objętych rezerwacją.
-- Długość pobytu: Liczba nocy, na które dokonano rezerwacji.
-- Rodzaj pokoju: Kategoryczna zmienna określająca typ zarezerwowanego pokoju (np. standardowy, deluxe, suite).
-- Cena za noc: Numeryczna zmienna wskazująca koszt jednej nocy pobytu w hotelu. 
-- Oceny gości: Numeryczna zmienna reprezentująca średnią ocen wystawionych przez gości po pobycie w hotelu. 
-- Sezonowość rezerwacji: Zmienna określająca, w jakim okresie roku dokonano rezerwacji (np. sezon wysoki, sezon niski). 
-- Lokalizacja hotelu: Kategoryczna zmienna określająca, gdzie znajduje się hotel (np.nad morzem, w centrum miasta).
+## 1.4. Opis najważniejszych zmiennych:
+
+-   Typ hotelu: Kategoryczna zmienna określająca, czy hotel jest resortowy czy miejski.
+-   Data rezerwacji: Zmienna datowa wskazująca dzień dokonania rezerwacji. - Liczba gości: Liczba osób objętych rezerwacją.
+-   Długość pobytu: Liczba nocy, na które dokonano rezerwacji.
+-   Rodzaj pokoju: Kategoryczna zmienna określająca typ zarezerwowanego pokoju (np. standardowy, deluxe, suite).
+-   Cena za noc: Numeryczna zmienna wskazująca koszt jednej nocy pobytu w hotelu.
+-   Oceny gości: Numeryczna zmienna reprezentująca średnią ocen wystawionych przez gości po pobycie w hotelu.
+-   Sezonowość rezerwacji: Zmienna określająca, w jakim okresie roku dokonano rezerwacji (np. sezon wysoki, sezon niski).
+-   Lokalizacja hotelu: Kategoryczna zmienna określająca, gdzie znajduje się hotel (np.nad morzem, w centrum miasta).
 
 # 2. Analiza danych
+
 ## 2.1. Braki danych
 
 ```{r}
@@ -110,11 +102,13 @@ write.csv(Hotels, "hotele/Hotels.csv")
 ```{r}
 VIM::aggr(City_hotels, col=c('navyblue','red'), numbers=TRUE, sortVars=TRUE, labels=names(City_hotels), cex.axis=.7, gap=3, ylab=c("Procent braków danych","Wzorzec braków danych"))
 ```
+
 ```{r}
 VIM::aggr(Resort_hotels, col=c('navyblue','red'), numbers=TRUE, sortVars=TRUE, labels=names(Resort_hotels), cex.axis=.7, gap=3, ylab=c("Procent braków danych","Wzorzec braków danych"))
 ```
 
 ## 2.2. Walidacja danych
+
 Celem etapu walidacji było sprawdzenie poprawności, spójności oraz kompletności zbioru danych dotyczącego hoteli miejskich i resortowych, tak aby zapewnić wiarygodność dalszych analiz i wizualizacji.
 
 ```{r}
@@ -134,24 +128,25 @@ rules <- validator(
   !is.na(country)
 )
 ```
+
 ```{r}
 cf <- confront(Hotels, rules)
 summary(cf)
 plot(cf)
 ```
+
 Walidacja danych została przeprowadzona przy użyciu zdefiniowanych reguł walidacyjnych (V01, V02), które sprawdzały poprawność logiczną oraz zakres wartości zmiennych w zbiorze danych.
 
 Na wykresie przedstawiono wyniki walidacji według reguł. Dla obu reguł (V01 oraz V02) 100% obserwacji spełnia założone kryteria poprawności. Nie stwierdzono żadnych przypadków naruszenia reguł (0% błędów) ani brakujących danych.
 
-Łącznie zwalidowano 239 tys. obserwacji, z czego każda została zakwalifikowana jako poprawna. Oznacza to, że dane są:
-- spójne logicznie,
-- kompletne,
-- wolne od błędów strukturalnych i zakresowych.
+Łącznie zwalidowano 239 tys. obserwacji, z czego każda została zakwalifikowana jako poprawna. Oznacza to, że dane są: - spójne logicznie, - kompletne, - wolne od błędów strukturalnych i zakresowych.
 
 Na podstawie przeprowadzonej walidacji zbiór danych został uznany za w pełni poprawny i gotowy do dalszej analizy eksploracyjnej oraz wizualizacji.
 
 ## 2.3. Statystyki opisowe
+
 Celem niniejszego podrozdziału jest przedstawienie podstawowej charakterystyki statystycznej analizowanego zbioru danych. Statystyka opisowa pozwala na wstępne rozpoznanie struktury danych, ocenę ich zróżnicowania oraz identyfikację potencjalnych wartości skrajnych, które mogą mieć istotne znaczenie w dalszych etapach analizy.
+
 ```{r}
 library(dplyr)
 library(tidyr)
@@ -185,6 +180,7 @@ statystyka_opisowa <- Hotels %>%
 
 statystyka_opisowa
 ```
+
 Wnioski:
 
 Średnia dzienna cena pokoju (ADR) wynosi około 101,8, przy medianie 94,6, co wskazuje na prawostronną asymetrię rozkładu cen. Potwierdza to bardzo wysokie maksimum (5400), sugerujące występowanie pojedynczych, skrajnie drogich rezerwacji, które podnoszą wartość średnią. Duże odchylenie standardowe (50,5) świadczy o znacznym zróżnicowaniu cen.
@@ -204,9 +200,11 @@ Podsumowując:
 Analiza statystyki opisowej wskazuje, że dane charakteryzują się obecnością wartości skrajnych, szczególnie w przypadku ceny pokoju oraz czasu wyprzedzenia rezerwacji. Typowa rezerwacja dotyczy dwóch dorosłych osób, bez dzieci, na pobyt krótki, a ceny oraz terminy rezerwacji wykazują znaczną zmienność, co uzasadnia dalsze analizy.
 
 ## 2.4. Analiza korelacji
+
 W dalszej części analizy podjęto próbę oceny zależności pomiędzy wybranymi zmiennymi ilościowymi opisującymi rezerwacje hotelowe. Analiza korelacji pozwala na określenie siły oraz kierunku współzależności między zmiennymi. Stanowi ona ważny etap eksploracji danych, umożliwiający wstępną identyfikację relacji, które mogą mieć znaczenie w dalszych etapach badań.
 
 Korelacja Pearsona:
+
 ```{r}
 library(dplyr)
 library(ggcorrplot)
@@ -242,9 +240,11 @@ ggcorrplot(
   insig = "blank"
 )
 ```
+
 Analiza korelacji Pearsona wskazuje, że większość zależności pomiędzy badanymi zmiennymi ma słabą siłę. Silne dodatnie korelacje występują jedynie pomiędzy zmiennymi agregowanymi, takimi jak łączna liczba noclegów i jej składowe oraz wielkość grupy i liczba osób w rezerwacji, co wynika bezpośrednio z ich definicji. Zmienna ADR oraz czas wyprzedzenia rezerwacji (LeadTime) nie wykazują istotnych liniowych zależności z pozostałymi cechami. Otrzymane wyniki sugerują względną niezależność analizowanych zmiennych i uzasadniają zastosowanie dalszych metod analitycznych.
 
 Korelacja Spearmana:
+
 ```{r}
 corr_data <- Hotels %>%
   transmute(
@@ -278,15 +278,17 @@ ggcorrplot(
   insig = "blank"
 )
 ```
+
 Analiza korelacji Spearmana potwierdza, że większość zależności pomiędzy badanymi zmiennymi ma słabą lub umiarkowaną siłę. Najsilniejsze dodatnie korelacje występują pomiędzy łączną liczbą noclegów a liczbą noclegów w tygodniu oraz w weekendy, a także pomiędzy wielkością grupy i liczbą dorosłych oraz dzieci, co wynika z konstrukcji tych zmiennych.
 
 Zmienna ADR wykazuje jedynie słabe, dodatnie korelacje z wielkością grupy i liczbą dorosłych, co sugeruje, że wzrost liczby osób w rezerwacji nie wiąże się istotnie ze wzrostem ceny pokoju. Korelacje pomiędzy czasem wyprzedzenia rezerwacji a pozostałymi zmiennymi są niewielkie, podobnie jak zależności związane ze zmiennymi kalendarzowymi. Wyniki Spearmana, odporne na wartości skrajne, potwierdzają wnioski uzyskane na podstawie korelacji Pearsona.
 
 ## 2.5 Wizualizacja danych
 
-1. Porównanie popularności typów hoteli (resortowych i miejskich) w oparciu o liczbę dokonanych rezerwacji.
+1.  Porównanie popularności typów hoteli (resortowych i miejskich) w oparciu o liczbę dokonanych rezerwacji.
 
 Grupowanie i zliczanie rezerwacji
+
 ```{r}
 library(dplyr)
 
@@ -297,6 +299,7 @@ check_out_count <- Hotels %>%
 
 check_out_count
 ```
+
 ```{r}
 library(ggplot2)
 
@@ -307,11 +310,13 @@ ggplot(check_out_count, aes(x = ID, y = Check_out, fill = ID)) +
        y = "Liczba rezerwacji") +
   theme_minimal()
 ```
+
 Z wykresu wynika, że w hotelach miejskich liczba zakończonych rezerwacji jest wyraźnie większa niż w hotelach resortowych. Oznacza to, że hotele miejskie obsługują więcej pobytów w ciągu roku.
 
 Może to wynikać z faktu, że pobyty w hotelach miejskich są częściej krótkie, natomiast w hotelach resortowych goście zwykle zatrzymują się na dłużej. Dlatego mniejsza liczba check-outów w hotelach resortowych nie musi oznaczać mniejszego obłożenia.
 
-2. Jak czesto rezerwacje sa anulowane?
+2.  Jak czesto rezerwacje sa anulowane?
+
 ```{r}
 library(dplyr)
 library(ggplot2)
@@ -339,7 +344,8 @@ Liczba rezerwacji typu no-show jest bardzo niska, co sugeruje, że problem niepo
 
 Ogólnie dane pokazują, że proces realizacji rezerwacji jest stabilny, a anulacje stanowią istotną, ale mniejszą część wszystkich rezerwacji.
 
-3. Jakie zmienne mają największy wpływ na cenę za noc w hotelach resortowych i miejskich?
+3.  Jakie zmienne mają największy wpływ na cenę za noc w hotelach resortowych i miejskich?
+
 ```{r}
 library(tidyverse)
 library(broom)
@@ -395,6 +401,7 @@ ggplot(coef_plot_data, aes(x = estimate, y = reorder(term, estimate))) +
 #dodatnie wartości - zmienna zwiększa cenę za noc
 #ujemne wartości - zmienna zmniejsza cenę za noc
 ```
+
 Na podstawie przeprowadzonego modelu liniowego można wskazać kilka kluczowych zmiennych wpływających na cenę za noc (ADR) w hotelach miejskich i resortowych.
 
 Najsilniejszy pozytywny wpływ na cenę za noc ma liczba dzieci oraz dorosłych w rezerwacji – im więcej gości, tym wyższa cena ADR. Wysoki wpływ ma również liczba wymaganych miejsc parkingowych oraz liczba specjalnych życzeń, co może wskazywać na wyższy standard lub bardziej wymagających klientów.
@@ -403,10 +410,10 @@ Liczba noclegów w dni robocze ma niewielki, ale dodatni wpływ na cenę, natomi
 
 Zmienna „hotel resortowy” ma wyraźnie ujemny wpływ na cenę za noc, co oznacza, że przy pozostałych czynnikach stałych, hotele resortowe oferują średnio niższą cenę ADR niż hotele miejskie.
 
-Podsumowanie:
-Cena za noc w hotelach jest przede wszystkim determinowana przez liczbę gości i dodatkowe wymagania klienta, natomiast hotele resortowe charakteryzują się niższą średnią ceną za noc w porównaniu do hoteli miejskich.
+Podsumowanie: Cena za noc w hotelach jest przede wszystkim determinowana przez liczbę gości i dodatkowe wymagania klienta, natomiast hotele resortowe charakteryzują się niższą średnią ceną za noc w porównaniu do hoteli miejskich.
 
 4.Ilu osobowe są najczęściej rezerwacje?
+
 ```{r}
 
 hotels <- Hotels %>%
@@ -427,7 +434,8 @@ ggplot(rezerwacje_osoby, aes(x = factor(liczba_osob), y = n)) +
 
 Najczęściej występują rezerwacje 2- osobowe, a następnie 1 i 3-osobowe.
 
-5. Jaki procent liczby osób stanowią poszczególne grupy? (Adults, Children,Babies)
+5.  Jaki procent liczby osób stanowią poszczególne grupy? (Adults, Children,Babies)
+
 ```{r}
 
 osoby <- tibble(
