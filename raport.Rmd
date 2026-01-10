@@ -505,6 +505,7 @@ ggplot(osoby, aes(x = "", y = liczba, fill = typ)) +
 
 ## 3.6. Jaki jest średni czas pobytu w hotelach resortowych, a jaki w miejskich?
 
+```{r}
 city_hotels <- City_hotels %>%
   mutate(dlugosc_pobytu = StaysInWeekNights + StaysInWeekendNights)
 
@@ -536,6 +537,7 @@ ggplot(sredni_pobyt, aes(x = typ_hotelu, y = sredni_pobyt, fill = typ_hotelu)) +
   ) +
   theme_minimal() +
   theme(legend.position = "none")
+```
  
 Wyniki pokazują, że średni czas pobytu w hotelach
 resortowych jest wyraźnie dłuższy niż w hotelach miejskich. Goście hoteli miejskich częściej decydują się na krótkie pobyty, natomiast w hotelach resortowych dominują rezerwacje obejmujące większą liczbę nocy.
@@ -544,7 +546,7 @@ Różnica ta jest wynikiem odmiennych funkcji omawianych hoteli. Miejskie są cz
 
 ## 3.7. Czy kraj pochodzenia wpływa na długość pobytu?
 
-
+```{r}
 city2 <- city_hotels %>%
 mutate(dlugosc_pobytu = StaysInWeekNights + StaysInWeekendNights) %>%
 mutate(typ_hotelu = "Hotel miejski")
@@ -583,6 +585,7 @@ y = "Średnia liczba nocy",
 theme_minimal(base_size = 13)
 
 pobyt_kraje
+```
 
 Na wykresie przedstawiono średnią długość pobytu gości pochodzących z dziesięciu krajów generujących największą liczbę rezerwacji. Długość pobytu została zdefiniowana jako suma liczby noclegów w dni robocze oraz w weekendy.
 
@@ -595,6 +598,7 @@ wypoczynkowe
 
 ## 3.8. Jak długość pobytu i liczba gości wpływają jednocześnie na cenę za noc?
 
+```{r}
 city2 <- city_hotels %>%
   mutate(
     dlugosc_pobytu = StaysInWeekNights + StaysInWeekendNights,
@@ -632,6 +636,7 @@ p <- ggplot(all_hotels,
   )
 
 print(p)
+```
 
 Z wykresu wynika, że dłuższe pobyty są często premiowane niższą ceną za noc, ponieważ zapewniają hotelowi stabilność obłożenia i ograniczają koszty operacyjne związane z rotacją gości. Z kolei większa liczba gości zwiększa zapotrzebowanie na przestrzeń i usługi, co przekłada się na wyższy poziom cen. Różnice pomiędzy hotelami miejskimi i resortowymi mogą być dodatkowo
 wzmacniane przez charakter podróży – w hotelach miejskich dominują krótsze pobyty, natomiast w hotelach resortowych częściej występują pobyty długoterminowe, objęte rabatami cenowymi. widoczna na wykresach linia Loess przedstawia zależność, że wraz ze wzrostem długości pobytu średnia cena za noc maleje. 
