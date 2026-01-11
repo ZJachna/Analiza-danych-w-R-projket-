@@ -147,10 +147,6 @@ Walidacja danych została przeprowadzona przy użyciu zdefiniowanych reguł wali
 
 Na wykresie przedstawiono wyniki walidacji według reguł. Dla obu reguł (V01 oraz V02) 100% obserwacji spełnia założone kryteria poprawności. Nie stwierdzono żadnych przypadków naruszenia reguł (0% błędów) ani brakujących danych.
 
-Łącznie zwalidowano 239 tys. obserwacji, z czego każda została
-zakwalifikowana jako poprawna. Oznacza to, że dane są: - spójne
-logicznie, - kompletne, - wolne od błędów strukturalnych i zakresowych.
-
 Na podstawie przeprowadzonej walidacji zbiór danych został uznany za w pełni poprawny i gotowy do dalszej analizy eksploracyjnej oraz wizualizacji.
 
 ## 2.3. Statystyki opisowe
