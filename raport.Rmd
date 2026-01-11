@@ -55,17 +55,11 @@ Przeprowadzenie kompleksowej analizy wymienionych zagadnień umożliwi wyciągni
 
 4.  Ilu osobowe są najczęściej rezerwacje?
 
-5.  Jaki procent liczby osób stanowią poszczególne grupy? (Adults,Children,Babies)
+5.  Jaki jest średni czas pobytu w hotelach resortowych a jaki w miejskich?
 
-6.  Jaki jest średni czas pobytu w hotelach resortowych, a jaki w miejskich?
-
-
-7.  Jaki jest średni czas pobytu w hotelach resortowych a jaki w miejskich?
-
-8.  Jaki procent liczby osób stanowią poszczególne grupy? (Adults, Children,Babies)
+6.  Jaki procent liczby osób stanowią poszczególne grupy? (Adults, Children,Babies)
 
 7.  Czy kraj pochodzenia wpływa na długość pobytu?
-
 
 8.  Jak długość pobytu i liczba gości wpływają jednocześnie na cenę za noc?
 
@@ -85,11 +79,6 @@ Lista najważniejszych zmiennych w zbiorze danych: - Typ hotelu (resortowy/miejs
 -   Oceny gości: Numeryczna zmienna reprezentująca średnią ocen wystawionych przez gości po pobycie w hotelu.
 -   Sezonowość rezerwacji: Zmienna określająca, w jakim okresie roku dokonano rezerwacji (np. sezon wysoki, sezon niski).
 -   Lokalizacja hotelu: Kategoryczna zmienna określająca, gdzie znajduje się hotel (np.nad morzem, w centrum miasta).
-
-Lista najważniejszych zmiennych w zbiorze danych: - Typ hotelu
-(resortowy/miejski) - Data rezerwacji - Liczba gości - Długość pobytu -
-Rodzaj pokoju - Cena za noc - Oceny gości - Sezonowość rezerwacji -
-Lokalizacja hotelu
 
 # 2. Analiza danych
 
@@ -123,8 +112,6 @@ VIM::aggr(Resort_hotels, col=c('navyblue','red'), numbers=TRUE, sortVars=TRUE, l
 Przeprowadzono analizę jakości danych, w wyniku której nie stwierdzono braków danych w wykorzystanych zmiennych. Zbiór danych był kompletny i nie wymagał uzupełniania ani imputacji brakujących wartości, co pozwoliło na bezpośrednie przeprowadzenie dalszej analizy statystycznej i wizualizacji wyników.
 
 ## 2.2. Walidacja danych
-
-Celem etapu walidacji było sprawdzenie poprawności, spójności oraz kompletności zbioru danych dotyczącego hoteli miejskich i resortowych, tak aby zapewnić wiarygodność dalszych analiz i wizualizacji.
 
 Celem etapu walidacji było sprawdzenie poprawności, spójności oraz kompletności zbioru danych dotyczącego hoteli miejskich i resortowych, tak aby zapewnić wiarygodność dalszych analiz i wizualizacji.
 
@@ -227,9 +214,6 @@ obecnością wartości skrajnych, szczególnie w przypadku ceny pokoju oraz czas
 ## 2.4. Analiza korelacji
 
 W dalszej części analizy podjęto próbę oceny zależności pomiędzy wybranymi zmiennymi ilościowymi opisującymi rezerwacje hotelowe. Analiza korelacji pozwala na określenie siły oraz kierunku współzależności między zmiennymi. Stanowi ona ważny etap eksploracji danych, umożliwiający wstępną identyfikację relacji, które mogą mieć znaczenie w dalszych etapach badań.
-
-W dalszej części analizy podjęto próbę oceny zależności pomiędzy
-wybranymi zmiennymi ilościowymi opisującymi rezerwacje hotelowe. Analiza korelacji pozwala na określenie siły oraz kierunku współzależności między zmiennymi. Stanowi ona ważny etap eksploracji danych, umożliwiający wstępną identyfikację relacji, które mogą mieć znaczenie w dalszych etapach badań.
 
 Korelacja Pearsona:
 
