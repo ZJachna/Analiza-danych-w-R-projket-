@@ -614,3 +614,78 @@ print(p)
 
 Z wykresu wynika, że dłuższe pobyty są często premiowane niższą ceną za noc, ponieważ zapewniają hotelowi stabilność obłożenia i ograniczają koszty operacyjne związane z rotacją gości. Z kolei większa liczba gości zwiększa zapotrzebowanie na przestrzeń i usługi, co przekłada się na wyższy poziom cen. Różnice pomiędzy hotelami miejskimi i resortowymi mogą być dodatkowo
 wzmacniane przez charakter podróży – w hotelach miejskich dominują krótsze pobyty, natomiast w hotelach resortowych częściej występują pobyty długoterminowe, objęte rabatami cenowymi. widoczna na wykresach linia Loess przedstawia zależność, że wraz ze wzrostem długości pobytu średnia cena za noc maleje. 
+
+# 4. Wnioskowanie statystyczne
+## 4.1 Dane i cel analizy
+Zmienną badaną jest średnia cena za noc w hotelu.Celem analizy jest sprawdzenie, czy średnia cena za noc różni się istotnie statystycznie w zależności od typu hotelu (hotel miejski vs hotel resortowy).
+
+Do analizy wykorzystano wyłącznie rezerwacje zrealizowane (bez anulacji).
+
+```{r}
+library(dplyr)
+library (ggpubr)
+library(rstatix)
+library(car)
+
+Hotels <- read.csv("hotele/Hotels.csv")
+
+anova_data <- Hotels %>%
+  filter(IsCanceled == 0) %>%
+  mutate(
+    ID = factor(ID,
+                levels = c("city", "resort"),
+                labels = c("Hotel miejski", "Hotel resortowy"))
+)
+```
+
+## 4.2 Założenia
+H0: Średnia cena za noc (ADR) nie różni się istotnie pomiędzy hotelami miejskimi i resortowymi.
+
+H1: Co najmniej jedna średnia cena za noc różni się istotnie pomiędzy typami hoteli.
+
+```{r}
+ggboxplot(
+  anova_data,
+  x = "ID",
+  y = "ADR",
+  color = "ID",
+  palette = c("#2C7FB8", "#F03B20"),
+  xlab = "Typ hotelu",
+  ylab = "Cena za noc (ADR)"
+)
+```
+
+Wykres pudełkowy wskazuje na widoczne różnice w rozkładzie cen pomiędzy hotelami miejskimi i resortowymi, co uzasadnia przeprowadzenie testu ANOVA.
+
+## 4.3 ANNOVA
+
+```{r}
+model_anova <- aov(ADR ~ ID, data = anova_data)
+summary(model_anova)
+```
+
+
+## 4.4 Średnie ceny w grupach
+
+```{r}
+aggregate(ADR ~ ID, data = anova_data, mean)
+```
+
+
+## 4.5 Prosty wykres
+
+```{r}
+boxplot(
+  ADR ~ ID,
+  data = anova_data,
+  col = c("lightblue", "lightgreen"),
+  xlab = "Typ hotelu",
+  ylab = "Cena za noc (ADR)",
+  main = "Cena za noc a typ hotelu"
+)
+```
+
+
+## 4.6 Wnioski
+
+Przeprowadzono jednoczynnikową analizę wariancji (ANOVA), której celem było sprawdzenie, czy średnia cena za noc (ADR) różni się w zależności od typu hotelu. Wyniki testu wskazują na istotny statystycznie wpływ typu hotelu na cenę za noc (p < 0,05), co oznacza odrzucenie hipotezy zerowej. Średnia cena za noc różni się pomiędzy hotelami miejskimi i resortowymi.
