@@ -390,7 +390,7 @@ model <- lm(ADR ~ LeadTime + StaysInWeekendNights + StaysInWeekNights + Adults +
 coef_plot_data <- tidy(model) %>%
   filter(term != "(Intercept)") %>%
   mutate(
-    term = recode(term,
+    term = dplyr::recode(term,
       LeadTime = "Lead time",
       StaysInWeekendNights = "Weekend nights",
       StaysInWeekNights = "Week nights",
