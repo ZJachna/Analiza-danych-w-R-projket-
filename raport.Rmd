@@ -14,7 +14,12 @@ editor_options:
 
 ```{r setup, include=FALSE}
 ## Global options
-knitr::opts_chunk$set(cache = TRUE)
+knitr::opts_chunk$set(
+  cache = TRUE,
+  echo = FALSE,
+  message = FALSE,
+  warning = FALSE
+)
 library(tidyverse)
 library(readr)
 resort <- read_csv("hotele/Resort_hotels.csv")
@@ -214,9 +219,14 @@ W dalszej części analizy podjęto próbę oceny zależności pomiędzy wybrany
 Korelacja Pearsona:
 
 ```{r}
+install.packages(c("rlang","vctrs","cli","ggplot2","dplyr"))
+library(rlang)
 library(dplyr)
 library(ggcorrplot)
 library(Hmisc)
+library(ggplot2)
+library(cli)
+library(vctrs)
 
 corr_data <- Hotels %>%
   transmute(
@@ -617,6 +627,7 @@ wzmacniane przez charakter podróży – w hotelach miejskich dominują krótsze
 
 # 4. Wnioskowanie statystyczne
 ## 4.1 Dane i cel analizy
+
 Zmienną badaną jest średnia cena za noc w hotelu.Celem analizy jest sprawdzenie, czy średnia cena za noc różni się istotnie statystycznie w zależności od typu hotelu (hotel miejski vs hotel resortowy).
 
 Do analizy wykorzystano wyłącznie rezerwacje zrealizowane (bez anulacji).
@@ -657,7 +668,7 @@ ggboxplot(
 
 Wykres pudełkowy wskazuje na widoczne różnice w rozkładzie cen pomiędzy hotelami miejskimi i resortowymi, co uzasadnia przeprowadzenie testu ANOVA.
 
-## 4.3 ANNOVA
+## 4.3 ANOVA
 
 ```{r}
 model_anova <- aov(ADR ~ ID, data = anova_data)
@@ -685,7 +696,20 @@ boxplot(
 )
 ```
 
-
 ## 4.6 Wnioski
 
 Przeprowadzono jednoczynnikową analizę wariancji (ANOVA), której celem było sprawdzenie, czy średnia cena za noc (ADR) różni się w zależności od typu hotelu. Wyniki testu wskazują na istotny statystycznie wpływ typu hotelu na cenę za noc (p < 0,05), co oznacza odrzucenie hipotezy zerowej. Średnia cena za noc różni się pomiędzy hotelami miejskimi i resortowymi.
+
+# 5. Podsumowanie
+
+W projekcie przeprowadzono analizę danych dotyczących rezerwacji w hotelach miejskich i resortowych, koncentrując się na popularności obiektów, anulacjach, strukturze rezerwacji, długości pobytu oraz czynnikach wpływających na cenę za noc.
+
+Wyniki wskazują, że hotele miejskie mają większą liczbę zrealizowanych rezerwacji niż hotele resortowe. Jednocześnie średnia długość pobytu jest wyraźnie dłuższa w hotelach resortowych, co jest zgodne z ich wypoczynkowym charakterem, podczas gdy hotele miejskie częściej obsługują pobyty krótkie (np. wyjazdy służbowe i city-breaki).
+
+Analiza statusów rezerwacji wykazała, że większość rezerwacji zostaje zrealizowana, a liczba anulacji stanowi mniejszą część wszystkich przypadków. Rezerwacje typu no-show występują sporadycznie, co sugeruje stabilność procesu rezerwacyjnego. W zakresie struktury rezerwacji dominują rezerwacje 1–2 osobowe, przy czym zdecydowaną większość gości stanowią dorośli (ok. 94%), a udział dzieci i niemowląt jest niewielki. Oznacza to, że popyt w analizowanym zbiorze danych jest generowany przede wszystkim przez osoby dorosłe podróżujące samodzielnie lub w parach.
+
+Model regresji liniowej wskazał, że na cenę za noc najsilniej wpływa liczba gości oraz dodatkowe wymagania (np. specjalne życzenia i zapotrzebowanie na parking). Z kolei czas wyprzedzenia rezerwacji i noclegi weekendowe nie wykazywały istotnego wpływu. Dodatkowo analiza wykazała, że przy stałych pozostałych czynnikach hotele resortowe oferują średnio niższą cenę za noc niż hotele miejskie, co zostało potwierdzone także testem ANOVA (różnice istotne statystycznie).
+
+Zauważono również, że kraj pochodzenia różnicuje średnią długość pobytu. Część narodowości (np. Wielka Brytania, Irlandia) charakteryzuje się dłuższymi pobytami, podczas gdy inne częściej wybierają krótsze wizyty. Ponadto zależność łączna wskazuje, że dłuższy pobyt bywa powiązany ze spadkiem ceny za noc (efekt rabatów długoterminowych), natomiast większa liczba gości wiąże się z wyższym ADR.
+
+Podsumowując, analiza potwierdza istotne różnice między typami hoteli oraz wskazuje, że cena za noc jest przede wszystkim determinowana charakterystyką rezerwacji (liczba osób i dodatkowe potrzeby), a nie samym terminem lub wyprzedzeniem rezerwacji.
