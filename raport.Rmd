@@ -219,7 +219,6 @@ W dalszej części analizy podjęto próbę oceny zależności pomiędzy wybrany
 Korelacja Pearsona:
 
 ```{r}
-install.packages(c("rlang","vctrs","cli","ggplot2","dplyr"))
 library(rlang)
 library(dplyr)
 library(ggcorrplot)
